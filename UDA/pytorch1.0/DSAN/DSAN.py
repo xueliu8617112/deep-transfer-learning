@@ -9,6 +9,7 @@ import ResNet as models
 from Weight import Weight
 from Config import *
 import time
+
 os.environ["CUDA_VISIBLE_DEVICES"] = cuda_id
 
 cuda = not no_cuda and torch.cuda.is_available()
@@ -16,7 +17,7 @@ cuda = not no_cuda and torch.cuda.is_available()
 #if cuda:
 #    torch.cuda.manual_seed(seed)
 
-kwargs = {'num_workers': 1, 'pin_memory': True} if cuda else {}
+kwargs = {'num_workers': 0, 'pin_memory': True} if cuda else {}
 
 source_loader = data_loader.load_training(root_path, source_name, batch_size, kwargs)
 target_train_loader = data_loader.load_training(root_path, target_name, batch_size, kwargs)
@@ -103,7 +104,7 @@ if __name__ == '__main__':
         t_correct = test(model)
         if t_correct > correct:
             correct = t_correct
-            #torch.save(model, 'model.pkl')
+            torch.save(model, 'model.pkl')
         end_time = time.time()
         print('source: {} to target: {} max correct: {} max accuracy{: .2f}%\n'.format(
               source_name, target_name, correct, 100. * correct / len_target_dataset ))

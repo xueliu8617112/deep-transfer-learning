@@ -20,7 +20,7 @@ no_cuda =False
 seed = 8
 log_interval = 10
 l2_decay = 5e-4
-root_path = "/data/zhuyc/OFFICE31/"
+root_path = "E:\工作文档\DATA\office31\\"
 src_name = "amazon"
 tgt_name = "dslr"
 
@@ -30,7 +30,7 @@ torch.manual_seed(seed)
 if cuda:
     torch.cuda.manual_seed(seed)
 
-kwargs = {'num_workers': 1, 'pin_memory': True} if cuda else {}
+kwargs = {'num_workers': 0, 'pin_memory': True} if cuda else {}
 
 src_loader = data_loader.load_training(root_path, src_name, batch_size, kwargs)
 tgt_train_loader = data_loader.load_training(root_path, tgt_name, batch_size, kwargs)
